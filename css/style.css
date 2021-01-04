@@ -1,0 +1,20 @@
+img {
+  max-width: 400px;
+}
+
+.container {
+  max-width: 400px;
+}
+
+.weather-icon {
+  position: relative;
+  top: -50px;
+  border-radius: 50%;
+  width: 100px;
+  background-color: cornsilk;
+  margin-bottom: -50px;
+}
+
+h1 {
+  font-size: 2.2rem;
+}
