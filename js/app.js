@@ -12,9 +12,27 @@ const showCityCard = () => {
   }
 }
 
-const showCityWeather = async inputValue => {
+const fetchCityWeatherInfo = async inputValue => {
   const [{Key, LocalizedName}] = await getCityData(inputValue)
-  const [{IsDayTime, Temperature, WeatherText, WeatherIcon}] = await getCityWeather(Key)
+  const [{IsDayTime, Temperature, WeatherText, WeatherIcon}] = 
+    await getCityWeather(Key)
+
+  return { 
+    LocalizedName,
+    IsDayTime,
+    Temperature,
+    WeatherText,
+    WeatherIcon
+  }
+}
+
+const showCityWeather = async inputValue => {
+  const { 
+    LocalizedName,
+    IsDayTime,
+    Temperature,
+    WeatherText,
+    WeatherIcon } = await fetchCityWeatherInfo(inputValue)
   const timeIcon = IsDayTime ? './src/day.svg' : './src/night.svg'
 
   timeImg.setAttribute('src', timeIcon)
@@ -24,7 +42,7 @@ const showCityWeather = async inputValue => {
   cityTemperature.textContent = Temperature.Metric.Value  + " ºC"
 }
 
-form.addEventListener('submit', event => {
+const handleCityForm = event => {
   event.preventDefault()
 
   const inputValue = event.target.city.value
@@ -32,4 +50,6 @@ form.addEventListener('submit', event => {
   showCityCard()
   showCityWeather(inputValue)
   event.target.reset()
-})
+}
+
+form.addEventListener('submit', handleCityForm)
